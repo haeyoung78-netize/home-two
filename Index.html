@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>경찰 시험 형사법 핵심 판례 OX 퀴즈 (메탈 에디션)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Web Audio Synthesizer (Tone.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            metal: {
+              black: '#090c10',
+              deep: '#12161f',
+              dark: '#1b212c',
+              slate: '#262f3d',
+              steel: '#384355',
+              titanium: '#4f5d73',
+              silver: '#9aa5b8',
+              chrome: '#e2e8f0',
+              highlight: '#f8fafc'
+            },
+            status: {
+              blueNeon: '#0072ff',
+              blueGlow: '#00c6ff',
+              rubyNeon: '#ff0844',
+              rubyGlow: '#ff4e50',
+              gold: '#ffd700'
+            }
+          },
+          animation: {
+            'pop': 'pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+            'shake': 'shake 0.35s ease-in-out',
+            'sheen': 'sheen 3s infinite ease-in-out',
+            'glow-pulse': 'glowPulse 2s infinite ease-in-out'
+          },
+          keyframes: {
+            pop: {
+              '0%': { transform: 'scale(0.94)', opacity: '0.85' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            },
+            shake: {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '20%, 60%': { transform: 'translateX(-7px)' },
+              '40%, 80%': { transform: 'translateX(7px)' }
+            },
+            sheen: {
+              '0%': { transform: 'translateX(-100%)' },
+              '40%, 100%': { transform: 'translateX(200%)' }
+            },
+            glowPulse: {
+              '0%, 100%': { opacity: '0.8' },
+              '50%': { opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Segoe UI", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      background-color: #0b0f16;
+      /* 헤어라인 브러시드 스틸 질감 & 금속 카본 메쉬 패턴 */
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(56, 67, 85, 0.45) 0%, transparent 60%),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 1px, transparent 1px, transparent 4px),
+        linear-gradient(180deg, #111620 0%, #080b0f 100%);
+    }
+
+    /* 크롬 엠보스 및 메탈 보더 */
+    .chrome-border {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 
+        0 1px 0 0 rgba(255, 255, 255, 0.25) inset,
+        0 -1px 0 0 rgba(0, 0, 0, 0.6) inset,
+        0 8px 24px -4px rgba(0, 0, 0, 0.85);
+    }
+
+    /* 메탈 플레이트 그라디언트 (양각 티타늄 패널) */
+    .metal-plate {
+      background: linear-gradient(165deg, #273142 0%, #1a222f 45%, #131924 100%);
+      position: relative;
+    }
+
+    /* 헤어라인 메탈 텍스처 오버레이 */
+    .metal-plate::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.012) 0px,
+        rgba(255, 255, 255, 0.012) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    /* 메탈 볼트/리벳 디테일 */
+    .bolt {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #cbd5e1 0%, #475569 65%, #0f172a 100%);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.7);
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bolt::after {
+      content: '';
+      width: 4px;
+      height: 1px;
+      background-color: #1e293b;
+      transform: rotate(45deg);
+    }
+
+    /* 음각(Debossed) 텍스트 및 패널 */
+    .engraved-panel {
+      background: linear-gradient(180deg, #0e121a 0%, #151b26 100%);
+      box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.8),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.08),
+        0 1px 1px rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.6);
+    }
+
+    /* 버튼 메탈 광택 효과 (Machined Metal Button) */
+    .metal-btn {
+      background: linear-gradient(180deg, #2b374a 0%, #1e2736 50%, #151d29 100%);
+      box-shadow: 
+        0 1px 0 0 rgba(255, 255, 255, 0.3) inset,
+        0 -2px 0 0 rgba(0, 0, 0, 0.8) inset,
+        0 6px 14px rgba(0, 0, 0, 0.7);
+      border: 1px solid #3b4759;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .metal-btn:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: 
+        0 0 0 0 rgba(255, 255, 255, 0.1) inset,
+        0 -1px 0 0 rgba(0, 0, 0, 0.8) inset,
+        0 2px 5px rgba(0, 0, 0, 0.9);
+      background: linear-gradient(180deg, #1b2330 0%, #151d29 100%);
+    }
+
+    /* 블루/레드 네온 인디케이터 LED */
+    .led-glow-blue {
+      box-shadow: 0 0 16px rgba(0, 198, 255, 0.6), inset 0 0 6px rgba(0, 198, 255, 0.8);
+    }
+    .led-glow-red {
+      box-shadow: 0 0 16px rgba(255, 78, 80, 0.6), inset 0 0 6px rgba(255, 78, 80, 0.8);
+    }
+
+    /* 빗살무늬 경고 스트라이프 (Tactical Hazard Stripe) */
+    .hazard-stripe {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 215, 0, 0.12),
+        rgba(255, 215, 0, 0.12) 8px,
+        rgba(26, 34, 47, 0.6) 8px,
+        rgba(26, 34, 47, 0.6) 16px
+      );
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="text-metal-chrome min-h-full flex flex-col justify-between antialiased selection:bg-status-blueNeon selection:text-white">
+
+  <!-- Tactical Metal Top Bar -->
+  <header class="metal-plate chrome-border sticky top-0 z-30 border-b border-metal-steel">
+    <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between relative">
+      
+      <!-- Left: Machined Police Badge Metal Insignia -->
+      <div class="flex items-center space-x-3.5">
+        <div class="relative w-9 h-9 rounded-lg bg-gradient-to-b from-metal-chrome via-metal-silver to-metal-steel p-0.5 shadow-md flex items-center justify-center">
+          <div class="w-full h-full bg-gradient-to-b from-metal-dark to-metal-black rounded-[6px] flex items-center justify-center relative overflow-hidden">
+            <!-- Metallic specular highlight line -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent"></div>
+            <!-- Police Star/Shield Icon -->
+            <i class="ph-bold ph-police-car text-status-gold text-lg drop-shadow-[0_0_6px_rgba(255,215,0,0.5)]"></i>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-sm sm:text-base font-black tracking-wider text-metal-highlight flex items-center gap-1.5 uppercase">
+              경시생 판례 OX <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-metal-black/70 text-slate-300 border border-metal-steel shadow-inner tracking-normal">티타늄 메탈</span>
+            </h1>
+          </div>
+          <p class="text-[11px] text-metal-silver flex items-center gap-1.5 font-medium" id="currentTopicLabel">
+            <span class="w-1.5 h-1.5 rounded-full bg-status-blueNeon shadow-[0_0_6px_#00c6ff]"></span>
+            형법 총론 기출 판례
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Action Controls (Tactical Switch Style Buttons) -->
+      <div class="flex items-center space-x-2">
+        <button id="soundToggleBtn" title="효과음 켜기/끄기" class="metal-btn p-2 rounded-xl text-metal-silver hover:text-white active:scale-95 transition">
+          <i class="ph-bold ph-speaker-high text-lg" id="soundIcon"></i>
+        </button>
+        <button id="resetQuizBtn" title="처음부터 다시 풀기" class="metal-btn p-2 rounded-xl text-metal-silver hover:text-white active:scale-95 transition">
+          <i class="ph-bold ph-arrow-counter-clockwise text-lg"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Laser Progress Track with Chrome Trim -->
+    <div class="w-full bg-metal-black h-2 relative overflow-hidden border-t border-metal-dark shadow-inner">
+      <div id="progressBar" class="h-full w-0 bg-gradient-to-r from-status-blueNeon via-indigo-500 to-status-rubyNeon transition-all duration-300 ease-out relative">
+        <div class="absolute right-0 top-0 bottom-0 w-2 bg-white shadow-[0_0_8px_#ffffff]"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-2xl w-full mx-auto p-4 flex flex-col justify-center">
+
+    <!-- Active Quiz Card Screen -->
+    <div id="quizScreen" class="flex flex-col h-full justify-between">
+      
+      <!-- Top Status Gauge (Engraved HUD Panel) -->
+      <div class="flex items-center justify-between mb-3.5 text-xs sm:text-sm font-semibold">
+        <!-- Question Index Gauge -->
+        <div class="engraved-panel px-3.5 py-1.5 rounded-xl flex items-center gap-2.5 border border-metal-steel/50">
+          <div class="flex items-center gap-1 text-[11px] text-metal-silver tracking-widest font-mono uppercase">
+            <i class="ph-bold ph-crosshair text-status-gold"></i> ITEM
+          </div>
+          <span class="font-mono text-sm font-black text-metal-highlight">
+            <strong class="text-status-blueGlow" id="currentIdxText">1</strong>
+            <span class="text-metal-steel mx-0.5">/</span>
+            <span id="totalCountText">10</span>
+          </span>
+        </div>
+
+        <!-- Score Counter Badges (Tactical Digital Gauge) -->
+        <div class="flex items-center space-x-2">
+          <div class="engraved-panel px-3 py-1.5 rounded-xl flex items-center gap-1.5 text-xs font-mono font-bold text-sky-400 border border-sky-900/50">
+            <span class="w-2 h-2 rounded-full bg-status-blueGlow shadow-[0_0_6px_#00c6ff]"></span>
+            정답 <span id="correctScore" class="font-black text-sm">0</span>
+          </div>
+          <div class="engraved-panel px-3 py-1.5 rounded-xl flex items-center gap-1.5 text-xs font-mono font-bold text-rose-400 border border-rose-900/50">
+            <span class="w-2 h-2 rounded-full bg-status-rubyGlow shadow-[0_0_6px_#ff4e50]"></span>
+            오답 <span id="wrongScore" class="font-black text-sm">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Question Metal Chassis -->
+      <div id="questionCard" class="metal-plate chrome-border rounded-3xl p-5 sm:p-7 flex flex-col relative overflow-hidden transition-all duration-200 min-h-[330px] justify-between">
+        
+        <!-- Four Corner Metal Rivets / Bolts -->
+        <div class="bolt top-3 left-3"></div>
+        <div class="bolt top-3 right-3"></div>
+        <div class="bolt bottom-3 left-3"></div>
+        <div class="bolt bottom-3 right-3"></div>
+
+        <!-- Upper Details -->
+        <div>
+          <!-- Classification Plate & Feedback LED Indicator -->
+          <div class="flex items-center justify-between mb-4">
+            <div id="questionTopic" class="engraved-panel inline-flex items-center gap-2 text-xs font-bold text-metal-chrome px-3.5 py-1.5 rounded-lg border border-metal-steel/70">
+              <span class="w-2 h-2 rounded-full bg-status-blueNeon shadow-[0_0_5px_#0072ff]"></span>
+              형법 총론
+            </div>
+            <div id="badgeFeedback" class="hidden text-xs font-black uppercase px-3 py-1 rounded-lg border shadow-lg font-mono"></div>
+          </div>
+
+          <!-- Problem Question Text Plate -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-metal-black/40 border border-metal-steel/40 shadow-inner">
+            <p id="questionText" class="text-base sm:text-lg font-medium leading-relaxed sm:leading-loose text-slate-100 select-text tracking-wide break-keep">
+              판례 지문을 불러오는 중입니다...
+            </p>
+          </div>
+        </div>
+
+        <!-- Detailed Legal Reasoning (Accordion/Drawer) -->
+        <div id="explanationContainer" class="hidden mt-4 pt-4 border-t border-metal-steel/60">
+          <div class="engraved-panel rounded-2xl p-4 sm:p-5 border border-metal-steel/80 text-sm leading-relaxed relative">
+            <div class="flex items-center justify-between mb-2.5 pb-2 border-b border-metal-steel/50">
+              <span class="font-extrabold text-metal-highlight flex items-center gap-1.5 text-xs sm:text-sm">
+                <i class="ph-fill ph-scales text-status-gold text-base"></i> 판례 핵심 법리 및 판시사항
+              </span>
+              <span id="actualAnswerBadge" class="text-xs font-mono font-black px-2.5 py-0.5 rounded border"></span>
+            </div>
+            <p id="explanationText" class="text-slate-300 text-xs sm:text-sm select-text whitespace-pre-line leading-relaxed font-normal"></p>
+            <div class="mt-3 pt-2.5 border-t border-metal-steel/40 text-[11px] font-semibold text-metal-silver flex items-center gap-1.5 font-mono">
+              <i class="ph-bold ph-seal-check text-status-blueGlow"></i>
+              <span id="referenceText">대법원 판례</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Tactical Choice Inputs -->
+      <div class="mt-4 pt-1">
+        
+        <!-- O / X Heavy Metal Buttons Grid -->
+        <div id="choiceButtonGroup" class="grid grid-cols-2 gap-3.5 sm:gap-5">
+          
+          <!-- Machined Metal Button [ O ] (Blue Laser Accent) -->
+          <button id="btnChooseO" class="metal-btn group relative flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl hover:border-status-blueNeon active:scale-95 transition-all overflow-hidden">
+            <!-- Metallic Light Sweep Accent -->
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-sky-400/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none"></div>
+            
+            <div class="relative flex items-center justify-center">
+              <span class="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-sky-200 via-sky-400 to-status-blueNeon drop-shadow-[0_2px_8px_rgba(0,198,255,0.4)] group-hover:scale-105 transition-transform font-mono">
+                O
+              </span>
+            </div>
+            <div class="flex items-center gap-2 mt-1.5">
+              <span class="w-2 h-2 rounded-full bg-status-blueGlow shadow-[0_0_8px_#00c6ff]"></span>
+              <span class="text-xs sm:text-sm font-bold text-metal-chrome tracking-wide">옳음 (True)</span>
+            </div>
+          </button>
+
+          <!-- Machined Metal Button [ X ] (Ruby Laser Accent) -->
+          <button id="btnChooseX" class="metal-btn group relative flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl hover:border-status-rubyNeon active:scale-95 transition-all overflow-hidden">
+            <!-- Metallic Light Sweep Accent -->
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-rose-400/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none"></div>
+            
+            <div class="relative flex items-center justify-center">
+              <span class="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-rose-200 via-rose-400 to-status-rubyNeon drop-shadow-[0_2px_8px_rgba(255,78,80,0.4)] group-hover:scale-105 transition-transform font-mono">
+                X
+              </span>
+            </div>
+            <div class="flex items-center gap-2 mt-1.5">
+              <span class="w-2 h-2 rounded-full bg-status-rubyGlow shadow-[0_0_8px_#ff4e50]"></span>
+              <span class="text-xs sm:text-sm font-bold text-metal-chrome tracking-wide">틀림 (False)</span>
+            </div>
+          </button>
+
+        </div>
+
+        <!-- Next Item Heavy Switch Button -->
+        <div id="nextActionGroup" class="hidden mt-2">
+          <button id="btnNextQuestion" class="w-full py-4 px-6 rounded-2xl metal-plate chrome-border hover:border-status-gold text-metal-highlight font-black text-base sm:text-lg flex items-center justify-center gap-2.5 active:scale-[0.98] transition group shadow-xl">
+            <span class="tracking-wide">다음 지문으로 넘어가기</span>
+            <i class="ph-bold ph-arrow-right text-status-gold group-hover:translate-x-1.5 transition-transform text-xl"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Tactical Score Evaluation Screen -->
+    <div id="resultScreen" class="hidden flex-col metal-plate chrome-border rounded-3xl p-6 sm:p-8 text-center animate-pop relative">
+      <!-- Corner Rivets -->
+      <div class="bolt top-3 left-3"></div>
+      <div class="bolt top-3 right-3"></div>
+      <div class="bolt bottom-3 left-3"></div>
+      <div class="bolt bottom-3 right-3"></div>
+
+      <!-- Titanium Medal Emblem -->
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-b from-metal-chrome via-metal-slate to-metal-black p-0.5 shadow-2xl mb-4">
+        <div class="w-full h-full bg-metal-dark rounded-[14px] flex items-center justify-center text-status-gold text-3xl shadow-inner border border-white/10">
+          <i class="ph-fill ph-shield-star drop-shadow-[0_0_12px_rgba(255,215,0,0.6)]"></i>
+        </div>
+      </div>
+      
+      <h2 class="text-2xl font-black text-white tracking-wider uppercase">훈련 완료 • 판례 평가</h2>
+      <p class="text-metal-silver text-xs sm:text-sm mt-1">대한민국 경찰 채용 필기 합격을 향한 철통 대비</p>
+
+      <!-- Meter Gauge Panel -->
+      <div class="my-6 p-5 rounded-2xl engraved-panel flex items-center justify-around border border-metal-steel/70">
+        <div class="text-center">
+          <p class="text-[11px] text-metal-silver font-bold uppercase tracking-wider mb-1">최종 정답률</p>
+          <p id="resultPercentage" class="text-2xl sm:text-3xl font-black text-status-blueGlow font-mono">0%</p>
+        </div>
+        <div class="h-10 w-px bg-metal-steel"></div>
+        <div class="text-center">
+          <p class="text-[11px] text-metal-silver font-bold uppercase tracking-wider mb-1">정답 문항수</p>
+          <p id="resultScoreRatio" class="text-2xl sm:text-3xl font-black text-status-gold font-mono">0 / 10</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button id="btnRetryWrong" class="flex-1 py-3.5 px-4 rounded-xl metal-btn border-rose-900/80 hover:border-status-rubyNeon text-rose-300 font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition disabled:opacity-30 disabled:cursor-not-allowed">
+          <i class="ph-bold ph-arrows-clockwise text-status-rubyGlow"></i>
+          <span>오답 지문만 다시 풀기</span>
+        </button>
+        <button id="btnRestartAll" class="flex-1 py-3.5 px-4 rounded-xl metal-btn border-metal-steel hover:border-metal-chrome text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition">
+          <i class="ph-bold ph-arrow-counter-clockwise text-metal-silver"></i>
+          <span>전체 문항 처음부터 풀기</span>
+        </button>
+      </div>
+
+      <!-- Incorrect Items Review Accordion -->
+      <div id="wrongReviewContainer" class="mt-8 text-left">
+        <div class="flex items-center justify-between mb-3 border-b border-metal-steel/60 pb-2.5">
+          <h3 class="text-sm font-black text-white flex items-center gap-2">
+            <i class="ph-bold ph-warning-octagon text-status-rubyGlow"></i> 오답 판례 정밀 분석서
+          </h3>
+          <span class="text-xs font-mono font-bold px-2 py-0.5 bg-rose-950/80 text-rose-300 rounded border border-rose-800">
+            <span id="wrongCountReview">0</span>건 복습 대상
+          </span>
+        </div>
+        <div id="wrongList" class="space-y-3 max-h-80 overflow-y-auto pr-1 custom-scroll">
+          <!-- Dynamic Wrong questions will be injected here -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Metal Footer -->
+  <footer class="text-center py-3.5 text-xs text-metal-silver border-t border-metal-steel/50 bg-metal-dark/70 backdrop-blur-md">
+    <div class="max-w-2xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-1 text-[11px] font-mono">
+      <div class="flex items-center gap-2 text-slate-400">
+        <i class="ph-fill ph-shield-check text-status-gold"></i>
+        <span>POLICE ACADEMY LAW OX • TITANIUM EDITION</span>
+      </div>
+      <div class="text-slate-500">대법원 판례 데이터 탑재</div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast Modal -->
+  <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 metal-plate chrome-border text-metal-highlight text-xs px-4 py-2.5 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-2 font-mono">
+    <span class="w-2 h-2 rounded-full bg-status-gold shadow-[0_0_6px_#ffd700]"></span>
+    <span id="toastMsg">알림 메시지</span>
+  </div>
+
+  <script>
+    /* =========================================================================
+       1. 수험생용 퀴즈 데이터셋 (이 변수의 내용을 교체하면 과목/테마가 바뀝니다)
+       ========================================================================= */
+    const quizData = [
+      {
+        id: 1,
+        topic: "형법 총론 - 죄형법정주의",
+        question: "구 도로교통법 제44조 제1항을 2회 이상 위반한 사람을 가중처벌하는 규정에서 '2회 이상 위반한 사람'에 구 도로교통법 개정 전의 음주운전 전과까지 포함하여 가중처벌하는 것은 형벌불소급의 원칙에 위배되지 않는다.",
+        answer: "O",
+        explanation: "개정 법률 시행 전의 위반 전과를 가중처벌의 요건으로 삼는다 하더라도, 이는 법 시행 이후의 새로운 범죄행위에 대하여 무겁게 처벌하는 것이므로 형벌불소급의 원칙에 위반되지 않습니다.",
+        reference: "대법원 2020. 12. 10. 선고 2020도11029 판결"
+      },
+      {
+        id: 2,
+        topic: "형법 총론 - 부작위범",
+        question: "부진정 부작위범에서 작위의무는 법적인 의무여야 하므로 법령, 법률행위, 선행행위로 인해 발생할 수 있으나, 신의성실의 원칙이나 사회상규·조리에 의해서는 작위의무가 인정될 수 없다.",
+        answer: "X",
+        explanation: "부진정 부작위범의 작위의무는 법령, 법률행위, 선행행위뿐만 아니라 신의성실의 원칙이나 사회상규, 조리에 의해서도 인정될 수 있으므로 틀린 지문입니다.",
+        reference: "대법원 1996. 9. 6. 선고 95도2551 판결"
+      },
+      {
+        id: 3,
+        topic: "형법 총론 - 구성요건적 착오",
+        question: "피고인이 甲을 살해할 의도로 甲을 향해 권총을 발사하였으나 빗나가 옆에 있던 乙이 맞아 사망한 경우, 판례의 입장인 구체적 부합설에 따르면 乙에 대한 살인죄의 기수가 성립한다.",
+        answer: "X",
+        explanation: "구체적 부합설에 따르면 행위자가 인식한 사실과 발생한 사실이 구체적으로 일치해야 하므로, 타격의 착오의 경우 발생 사실(乙)에 대해서는 과실, 인식 사실(甲)에 대해서는 미수의 상상적 경합이 됩니다. 살인기수를 인정하는 것은 판례가 취하는 법정적 부합설의 입장입니다.",
+        reference: "대법원 1984. 1. 24. 선고 83도2813 판결 (법정적 부합설)"
+      },
+      {
+        id: 4,
+        topic: "형법 총론 - 위법성 조각사유",
+        question: "정당방위의 요건인 '현재의 부당한 침해'는 반드시 범죄행위일 필요는 없으며, 책임무능력자의 공격이나 과실에 의한 침해에 대해서도 정당방위가 성립할 수 있다.",
+        answer: "O",
+        explanation: "정당방위에서 침해의 '부당'은 객관적 법질서에 위배되는 위법한 침해를 의미하므로, 유책한 범죄행위일 것을 요하지 않으며 책임무능력자의 침해나 과실에 의한 침해에 대해서도 정당방위가 성립합니다.",
+        reference: "형법 제21조 관련 통설 및 판례"
+      },
+      {
+        id: 5,
+        topic: "형법 총론 - 정당행위",
+        question: "피고인이 자신의 명의로 등록된 자동차를 사실상 소유자인 채무자가 점유·관리하고 있음을 알면서도 채권 회수를 위하여 몰래 가져간 경우, 자구행위 또는 정당행위로서 위법성이 조각된다.",
+        answer: "X",
+        explanation: "권리자가 권리실행을 위하여 자력구제 수단을 쓴 경우라도 적법한 법적 절차에 의하지 아니하고 은밀히 취거한 행위는 사회상규에 반하여 위법성이 조각되지 않습니다.",
+        reference: "대법원 2006. 3. 24. 선고 2005도8081 판결"
+      },
+      {
+        id: 6,
+        topic: "형법 총론 - 책임론",
+        question: "형법 제10조 제3항(원인에 있어서 자유로운 행위)은 위험의 발생을 예견하고 자의로 심신장애를 야기한 경우에 적용되며, 위험 발생을 예견할 수 있었는데도 과실로 심신장애를 야기한 과실범의 경우에는 적용되지 않는다.",
+        answer: "X",
+        explanation: "대법원은 고의에 의한 원인에 있어서 자유로운 행위뿐만 아니라, 과실에 의하여 심신장애 상태를 유발하고 과실에 의한 결과를 야기한 경우에도 형법 제10조 제3항이 적용된다고 판시하고 있습니다.",
+        reference: "대법원 1992. 7. 28. 선고 92도999 판결"
+      },
+      {
+        id: 7,
+        topic: "형법 총론 - 미수론(중지미수)",
+        question: "공범 관계에 있는 피고인 중 1인이 범행을 중지하고 다른 공범자의 실행을 만류하였으나, 다른 공범자가 범행을 계속하여 기수에 이른 경우, 실행을 만류한 피고인에게는 중지미수가 인정된다.",
+        answer: "X",
+        explanation: "공범 중 1인의 중지미수가 인정되기 위해서는 자신의 행위를 중지하는 것만으로는 부족하고 다른 공범자의 실행을 저지하여 결과 발생을 방지해야 합니다. 다른 공범자가 기수에 이른 이상 중지미수가 성립할 수 없습니다.",
+        reference: "대법원 1969. 5. 27. 선고 69도465 판결"
+      },
+      {
+        id: 8,
+        topic: "형법 총론 - 공범과 신분",
+        question: "비신분자가 업무상 배임의 신분자와 공모하여 업무상 배임행위에 가담한 경우, 형법 제33조 단서에 의하여 비신분자는 단순배임죄의 정한 형으로 처단된다.",
+        answer: "O",
+        explanation: "진정신분범과 부진정신분범의 결합형태에서 판례는 형법 제33조 본문에 의해 업무상 배임죄의 공동정범이 성립하되, 단서에 의해 단순배임죄의 법정형으로 처단한다고 봅니다.",
+        reference: "대법원 1986. 10. 28. 선고 86도1517 판결"
+      },
+      {
+        id: 9,
+        topic: "형법 총론 - 공범론(교사범)",
+        question: "피교사자가 교사자의 교사행위 당시에는 이미 범행 결의를 굳히고 있었더라도 교사자의 교사행위로 인하여 결의가 더욱 강화되었다면 교사범이 성립할 수 있다.",
+        answer: "X",
+        explanation: "교사범은 범죄 결의가 없는 자에게 범죄 결의를 발생시키는 것이므로, 이미 범죄를 결의하고 있는 자에 대해서는 교사범이 성립할 수 없고 종범(방조범)이 성립할 여지만 있습니다.",
+        reference: "대법원 1991. 5. 14. 선고 91도542 판결"
+      },
+      {
+        id: 10,
+        topic: "형법 총론 - 죄수론",
+        question: "동일한 피해자에 대하여 단일하고 계속된 범의 아래 일정 기간 동안 지속적으로 협박 행위를 반복한 경우, 피해 법익이 전속적 법익이므로 각 협박행위마다 실체적 경합범이 성립한다.",
+        answer: "X",
+        explanation: "피해 법익이 동일하고 범의의 단일성과 계속성이 인정되며 범행 방법이 동일한 경우, 개인적 법익 침해라 하더라도 포괄일죄가 성립할 수 있으므로 각 협박마다 실체적 경합이라는 것은 오답입니다.",
+        reference: "대법원 2005. 9. 29. 선고 2005도4051 판결"
+      }
+    ];
+
+    let currentQuestions = [...quizData];
+    let currentIndex = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let answeredCurrent = false;
+    let soundEnabled = true;
+    let userWrongAnswers = [];
+
+    let synth = null;
+    function initSound() {
+      if (!synth && window.Tone) {
+        try {
+          // 메탈릭한 질감의 신디사이저 톤 세팅
+          synth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: "triangle8" },
+            envelope: {
+              attack: 0.005,
+              decay: 0.1,
+              sustain: 0.05,
+              release: 0.8
+            }
+          }).toDestination();
+          synth.volume.value = -9;
+        } catch(e) {
+          console.warn("Audio initialization deferred:", e);
+        }
+      }
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      initSound();
+      if (!synth) return;
+      try {
+        const now = Tone.now();
+        if (type === 'correct') {
+          // 경쾌하고 단단한 메탈 차임 (E5 -> B5)
+          synth.triggerAttackRelease(["E5", "B5"], "16n", now);
+        } else if (type === 'wrong') {
+          // 둔탁한 저음 메탈 충격음 (F3 -> C#3)
+          synth.triggerAttackRelease(["F3", "Db3"], "8n", now);
+        } else if (type === 'finish') {
+          // 승리 코드 화음
+          synth.triggerAttackRelease(["C5", "G5", "C6"], "4n", now);
+        }
+      } catch (err) {
+        console.log("Audio play error", err);
+      }
+    }
+
+    const dom = {
+      progressBar: document.getElementById('progressBar'),
+      currentIdxText: document.getElementById('currentIdxText'),
+      totalCountText: document.getElementById('totalCountText'),
+      correctScore: document.getElementById('correctScore'),
+      wrongScore: document.getElementById('wrongScore'),
+      questionTopic: document.getElementById('questionTopic'),
+      questionText: document.getElementById('questionText'),
+      badgeFeedback: document.getElementById('badgeFeedback'),
+      explanationContainer: document.getElementById('explanationContainer'),
+      actualAnswerBadge: document.getElementById('actualAnswerBadge'),
+      explanationText: document.getElementById('explanationText'),
+      referenceText: document.getElementById('referenceText'),
+      questionCard: document.getElementById('questionCard'),
+      choiceButtonGroup: document.getElementById('choiceButtonGroup'),
+      nextActionGroup: document.getElementById('nextActionGroup'),
+      btnChooseO: document.getElementById('btnChooseO'),
+      btnChooseX: document.getElementById('btnChooseX'),
+      btnNextQuestion: document.getElementById('btnNextQuestion'),
+      quizScreen: document.getElementById('quizScreen'),
+      resultScreen: document.getElementById('resultScreen'),
+      resultPercentage: document.getElementById('resultPercentage'),
+      resultScoreRatio: document.getElementById('resultScoreRatio'),
+      btnRetryWrong: document.getElementById('btnRetryWrong'),
+      btnRestartAll: document.getElementById('btnRestartAll'),
+      wrongReviewContainer: document.getElementById('wrongReviewContainer'),
+      wrongCountReview: document.getElementById('wrongCountReview'),
+      wrongList: document.getElementById('wrongList'),
+      soundToggleBtn: document.getElementById('soundToggleBtn'),
+      soundIcon: document.getElementById('soundIcon'),
+      resetQuizBtn: document.getElementById('resetQuizBtn'),
+      toast: document.getElementById('toast'),
+      toastMsg: document.getElementById('toastMsg')
+    };
+
+    function showToast(message) {
+      dom.toastMsg.innerText = message;
+      dom.toast.classList.remove('opacity-0');
+      dom.toast.classList.add('opacity-100');
+      setTimeout(() => {
+        dom.toast.classList.remove('opacity-100');
+        dom.toast.classList.add('opacity-0');
+      }, 1800);
+    }
+
+    function renderQuestion() {
+      answeredCurrent = false;
+      const current = currentQuestions[currentIndex];
+      const total = currentQuestions.length;
+
+      // Update counters
+      dom.currentIdxText.textContent = currentIndex + 1;
+      dom.totalCountText.textContent = total;
+      
+      const progressPercent = ((currentIndex) / total) * 100;
+      dom.progressBar.style.width = `${progressPercent}%`;
+
+      // Set card texts
+      dom.questionTopic.innerHTML = `<span class="w-2 h-2 rounded-full bg-status-blueNeon shadow-[0_0_6px_#0072ff] inline-block"></span> ${current.topic || "핵심 기출"}`;
+      dom.questionText.textContent = current.question;
+      dom.explanationText.textContent = current.explanation;
+      dom.referenceText.textContent = current.reference || "대법원 판례";
+      
+      const isAnsO = (current.answer === 'O');
+      dom.actualAnswerBadge.textContent = `정답 [ ${current.answer} ]`;
+      dom.actualAnswerBadge.className = `text-xs font-mono font-black px-2.5 py-0.5 rounded border ${
+        isAnsO 
+          ? 'bg-sky-950/80 text-sky-300 border-sky-600/70 shadow-[0_0_8px_rgba(0,198,255,0.3)]' 
+          : 'bg-rose-950/80 text-rose-300 border-rose-600/70 shadow-[0_0_8px_rgba(255,78,80,0.3)]'
+      }`;
+
+      // Reset Card state styles
+      dom.questionCard.className = "metal-plate chrome-border rounded-3xl p-5 sm:p-7 flex flex-col relative overflow-hidden transition-all duration-200 min-h-[330px] justify-between animate-pop";
+      dom.badgeFeedback.classList.add('hidden');
+      dom.explanationContainer.classList.add('hidden');
+      
+      // Toggle button groups
+      dom.choiceButtonGroup.classList.remove('hidden');
+      dom.nextActionGroup.classList.add('hidden');
+
+      // Reset choice buttons UI
+      [dom.btnChooseO, dom.btnChooseX].forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('opacity-25', 'led-glow-blue', 'led-glow-red');
+      });
+    }
+
+    function handleChoice(selectedAnswer) {
+      if (answeredCurrent) return;
+      answeredCurrent = true;
+
+      const current = currentQuestions[currentIndex];
+      const isCorrect = (selectedAnswer === current.answer);
+
+      // Disable Choice Buttons
+      dom.btnChooseO.disabled = true;
+      dom.btnChooseX.disabled = true;
+
+      if (isCorrect) {
+        correctCount++;
+        dom.correctScore.textContent = correctCount;
+        playSound('correct');
+
+        // Visual Correct Feedback (Laser Blue Glowing Armor)
+        dom.questionCard.classList.remove('chrome-border');
+        dom.questionCard.classList.add('border', 'border-status-blueGlow', 'led-glow-blue');
+        
+        dom.badgeFeedback.textContent = "정답 • CORRECT";
+        dom.badgeFeedback.className = "text-xs font-black uppercase px-3 py-1 rounded-lg bg-sky-950/90 text-status-blueGlow border border-status-blueGlow shadow-[0_0_12px_rgba(0,198,255,0.4)]";
+        dom.badgeFeedback.classList.remove('hidden');
+
+      } else {
+        wrongCount++;
+        dom.wrongScore.textContent = wrongCount;
+        userWrongAnswers.push(current);
+        playSound('wrong');
+
+        // Visual Wrong Feedback with vibration shake (Ruby Red Warning)
+        dom.questionCard.classList.remove('chrome-border');
+        dom.questionCard.classList.add('border', 'border-status-rubyGlow', 'led-glow-red', 'animate-shake');
+        
+        dom.badgeFeedback.textContent = "오답 • INCORRECT";
+        dom.badgeFeedback.className = "text-xs font-black uppercase px-3 py-1 rounded-lg bg-rose-950/90 text-status-rubyGlow border border-status-rubyGlow shadow-[0_0_12px_rgba(255,78,80,0.4)]";
+        dom.badgeFeedback.classList.remove('hidden');
+
+        // Mobile Vibration API (Tactical double buzz)
+        if (navigator.vibrate) {
+          navigator.vibrate([70, 40, 70]);
+        }
+      }
+
+      // Highlight selected vs non-selected
+      if (selectedAnswer === 'O') {
+        dom.btnChooseX.classList.add('opacity-25');
+        dom.btnChooseO.classList.add('led-glow-blue');
+      } else {
+        dom.btnChooseO.classList.add('opacity-25');
+        dom.btnChooseX.classList.add('led-glow-red');
+      }
+
+      // Reveal explanation immediately
+      dom.explanationContainer.classList.remove('hidden');
+      dom.nextActionGroup.classList.remove('hidden');
+      dom.btnNextQuestion.focus();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < currentQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      dom.progressBar.style.width = '100%';
+      dom.quizScreen.classList.add('hidden');
+      dom.resultScreen.classList.remove('hidden');
+      playSound('finish');
+
+      const total = currentQuestions.length;
+      const percentage = Math.round((correctCount / total) * 100);
+      
+      dom.resultPercentage.textContent = `${percentage}%`;
+      dom.resultScoreRatio.textContent = `${correctCount} / ${total}`;
+
+      // Check wrong items
+      dom.wrongCountReview.textContent = userWrongAnswers.length;
+      dom.wrongList.innerHTML = '';
+
+      if (userWrongAnswers.length === 0) {
+        dom.btnRetryWrong.disabled = true;
+        dom.wrongList.innerHTML = `
+          <div class="p-6 engraved-panel rounded-2xl text-center border border-sky-500/40">
+            <i class="ph-fill ph-seal-check text-4xl text-status-blueGlow mb-2 drop-shadow-[0_0_10px_#00c6ff]"></i>
+            <p class="text-sm font-black text-white">오답 지문 없음 • 만점 달성</p>
+            <p class="text-xs text-metal-silver mt-1">오늘 평가된 모든 형사법 기출 판례를 완벽하게 통달하셨습니다.</p>
+          </div>
+        `;
+      } else {
+        dom.btnRetryWrong.disabled = false;
+        userWrongAnswers.forEach((q, idx) => {
+          const isAnsO = (q.answer === 'O');
+          const item = document.createElement('div');
+          item.className = "p-4 engraved-panel rounded-2xl border border-metal-steel text-xs sm:text-sm";
+          item.innerHTML = `
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-white font-mono">[#${idx + 1}] ${q.topic}</span>
+              <span class="px-2.5 py-0.5 rounded font-black font-mono text-xs ${
+                isAnsO 
+                  ? 'bg-sky-950/80 text-sky-300 border border-sky-600/70' 
+                  : 'bg-rose-950/80 text-rose-300 border border-rose-600/70'
+              }">정답: ${q.answer}</span>
+            </div>
+            <p class="text-slate-200 font-medium mb-3 leading-relaxed break-keep">${q.question}</p>
+            <div class="p-3 bg-metal-black/50 rounded-xl border border-metal-steel/50 text-slate-300 text-xs leading-normal">
+              <span class="font-bold text-status-gold">핵심 법리 해설:</span> ${q.explanation}
+              <div class="text-[11px] text-metal-silver mt-1.5 font-mono">${q.reference || ''}</div>
+            </div>
+          `;
+          dom.wrongList.appendChild(item);
+        });
+      }
+    }
+
+    function startQuiz(dataset) {
+      currentQuestions = [...dataset];
+      currentIndex = 0;
+      correctCount = 0;
+      wrongCount = 0;
+      userWrongAnswers = [];
+
+      dom.correctScore.textContent = '0';
+      dom.wrongScore.textContent = '0';
+
+      dom.resultScreen.classList.add('hidden');
+      dom.quizScreen.classList.remove('hidden');
+
+      renderQuestion();
+    }
+
+    // Option Click Handlers
+    dom.btnChooseO.addEventListener('click', () => handleChoice('O'));
+    dom.btnChooseX.addEventListener('click', () => handleChoice('X'));
+    dom.btnNextQuestion.addEventListener('click', nextQuestion);
+
+    // Keyboard Shortcuts (Desktop / Laptop Support: O, X, Numbers, Spacebar)
+    window.addEventListener('keydown', (e) => {
+      if (dom.quizScreen.classList.contains('hidden')) return;
+      
+      const key = e.key.toUpperCase();
+      if (!answeredCurrent) {
+        if (key === 'O' || key === '1' || key === 'ARROWLEFT') {
+          handleChoice('O');
+        } else if (key === 'X' || key === '2' || key === 'ARROWRIGHT') {
+          handleChoice('X');
+        }
+      } else {
+        if (e.key === 'Enter' || e.key === ' ' || key === 'ARROWDOWN') {
+          e.preventDefault();
+          nextQuestion();
+        }
+      }
+    });
+
+    // Sound toggle
+    dom.soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        dom.soundIcon.className = 'ph-bold ph-speaker-high text-lg text-metal-highlight';
+        showToast("택티컬 오디오 사운드 활성화");
+        initSound();
+      } else {
+        dom.soundIcon.className = 'ph-bold ph-speaker-slash text-lg text-metal-steel';
+        showToast("오디오 사운드 음소거");
+      }
+    });
+
+    // Reset Buttons
+    dom.resetQuizBtn.addEventListener('click', () => {
+      startQuiz(quizData);
+      showToast("퀴즈를 처음부터 다시 시작합니다.");
+    });
+
+    dom.btnRestartAll.addEventListener('click', () => {
+      startQuiz(quizData);
+      showToast("전체 문항을 다시 시작합니다.");
+    });
+
+    dom.btnRetryWrong.addEventListener('click', () => {
+      if (userWrongAnswers.length > 0) {
+        const wrongSet = [...userWrongAnswers];
+        startQuiz(wrongSet);
+        showToast(`오답 ${wrongSet.length}문항 집중 훈련 모드 가동`);
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      startQuiz(quizData);
+    });
+  </script>
+</body>
+</html>
